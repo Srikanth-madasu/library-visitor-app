@@ -50,16 +50,31 @@
         <button onclick="addBorrowing()">Add Borrowing</button>
         <a href="borrowings.html">View Borrowing List</a>
     </div>
+    <!-- Include Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
     <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDvXhZfWSbvujfC87I-p1b_Vy1MyJPhv68",
+            authDomain: "library-visitor-app.firebaseapp.com",
+            databaseURL: "https://library-visitor-app-default-rtdb.firebaseio.com",
+            projectId: "library-visitor-app",
+            storageBucket: "library-visitor-app.appspot.com",
+            messagingSenderId: "633299296943",
+            appId: "1:633299296943:web:2e0da0279acbe8fe0dea5a"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
         async function addBorrowing() {
             const name = document.getElementById('borrower-name').value;
             const book = document.getElementById('book-name').value;
             const time = document.getElementById('borrow-time').value;
             if (name && book && time) {
                 const borrowing = { name, book, time };
-                const borrowingList = await getBorrowingList();
-                borrowingList.push(borrowing);
-                await saveBorrowingList(borrowingList);
+                await firebase.database().ref('borrowings').push(borrowing);
                 alert('Borrowing registered successfully');
                 document.getElementById('borrower-name').value = '';
                 document.getElementById('book-name').value = '';
@@ -67,37 +82,6 @@
             } else {
                 alert('Please fill in all fields');
             }
-        }
-
-        async function getBorrowingList() {
-            const response = await fetch('https://raw.githubusercontent.com/Srikanth-madasu/library-visitor-app/main/borrowings.json');
-            return response.ok ? await response.json() : [];
-        }
-
-        async function saveBorrowingList(borrowingList) {
-            const token = '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';
-            const response = await fetch('https://api.github.com/repos/Srikanth-madasu/library-visitor-app/contents/borrowings.json', {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `token ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    message: 'Update borrowing list',
-                    content: btoa(JSON.stringify(borrowingList, null, 2)),
-                    sha: await getFileSHA()
-                })
-            });
-
-            if (!response.ok) {
-                alert('Error saving borrowing list');
-            }
-        }
-
-        async function getFileSHA() {
-            const response = await fetch('https://api.github.com/repos/Srikanth-madasu/library-visitor-app/contents/borrowings.json');
-            const data = await response.json();
-            return data.sha;
         }
     </script>
 </body>
