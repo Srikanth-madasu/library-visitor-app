@@ -75,7 +75,7 @@
         }
 
         async function saveBorrowingList(borrowingList) {
-            const token = 'YOUR_GITHUB_TOKEN';
+            const token = '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';
             const response = await fetch('https://api.github.com/repos/Srikanth-madasu/library-visitor-app/contents/borrowings.json', {
                 method: 'PUT',
                 headers: {
