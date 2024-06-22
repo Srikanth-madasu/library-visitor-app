@@ -29,7 +29,6 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            table-layout: fixed;
         }
         table, th, td {
             border: 1px solid #ddd;
@@ -37,7 +36,6 @@
         th, td {
             padding: 12px;
             text-align: left;
-            word-wrap: break-word;
         }
         th {
             background-color: #f2f2f2;
@@ -72,9 +70,25 @@
             .list-container {
                 padding: 15px;
             }
+            table, th, td {
+                display: block;
+                width: 100%;
+            }
             th, td {
                 padding: 8px;
                 font-size: 14px;
+            }
+            th {
+                background-color: transparent;
+                text-align: right;
+            }
+            th::before {
+                content: attr(data-title);
+                float: left;
+                font-weight: bold;
+            }
+            td {
+                text-align: right;
             }
             .remove-btn {
                 padding: 4px 8px;
@@ -96,11 +110,11 @@
         <div id="loading" class="loading">Loading students data<span class="spinner"></span></div>
         <table id="student-list" style="display: none;">
             <tr>
-                <th>Name</th>
-                <th>Student ID</th>
-                <th>Email ID</th>
-                <th>Branch</th>
-                <th>Action</th>
+                <th data-title="Name">Name</th>
+                <th data-title="Student ID">Student ID</th>
+                <th data-title="Email ID">Email ID</th>
+                <th data-title="Branch">Branch</th>
+                <th data-title="Action">Action</th>
             </tr>
         </table>
         <a href="home.html" style="display: block; text-align: center; margin-top: 20px; text-decoration: none; color: #007BFF;">Register New Visit</a>
