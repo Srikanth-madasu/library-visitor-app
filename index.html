@@ -9,7 +9,8 @@
             font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* Changed from center to flex-start */
+            padding-top: 50px; /* Added padding to reduce top height */
             height: 100vh;
             margin: 0;
             background: #f1f0f0;
@@ -41,7 +42,7 @@
         .login-container .icon-input-container input {
             display: block;
             width: 100%;
-            padding: 10px 40px 10px 20px;
+            padding: 10px 40px 10px 40px; /* Adjusted padding to accommodate the icon */
             font-size: 16px;
             border: 1px solid #ddd;
             border-radius: 5px;
@@ -54,6 +55,9 @@
             transform: translateY(-50%);
             font-size: 18px;
             color: #6a11cb;
+        }
+        .login-container .icon-input-container .icon img {
+            max-width: 20px; /* Adjust size as needed */
         }
         .login-container button {
             width: 100%;
@@ -107,20 +111,22 @@
             }
         }
     </style>
-    <!-- Include FontAwesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/kTc8kCTKyc1iwhcn/dZf7ZXLRL+UbI8sKsb9lz/e01j0nE5b/h1QthZ0MZVvgM6ZlXYj7lqRJITFg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <div class="login-container">
-        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjvD5vb1jZKa0v4tqEBWjJlsOvw9lJhPIH54zIcjAALRKXQfGb9E5atkVVDr5aZsJAatILgNJrGRsqwOlTUUKHBlAIxzxYr27Xw4MCPDNqu-m0DHXpIoslY0C8HlPIimcGIF1zuXDi61NLCPUeiVOwb473TKlavkhOERtevBhpII4z2aPAJy1ZO0nqwJYv8/s320/image-removebg-preview.png" alt="Logo">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgUakzHeOGhesnTKBMsLbmthDVm-emApFqLPOj_b1iJvtUVJL7bxjPa5RXc8Iv4GEEIMPRp63hkKxCg4t56AMm50WpW8tMVN2FVeCqIiZdeArVmyQI1vTTw3hHgzqJc6DyzehXZkwUo84vAoeVjCNBWpLasUw71ZAR7RyYtqCUYdRlR1SNrhG0UpOIw8ZFx/s320/image-removebg-preview.png" alt="Logo">
         <h2>Admin Login</h2>
         <div class="icon-input-container">
-            <i class="fas fa-user icon"></i>
-            <input type="text" id="username" placeholder="Type your username">
+            <span class="icon">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgUp2zluTsEDSr55aD0wXWvH2kUa4f2UcTL1MxEFhqSA7g3ElAPVy6DdMGgpPu9PqJ_sHr3htYPDT9fBm0z_l7PzNCkPmEAhMbY2ItSB2NyZbpULTQJDtSFfmOm_Oa6sNdoh35kPL5h26kIAYp-bdnt2vfXgCPqr2hnwVFQ0aQ1xBwZ2eWYmYlLYdCC8o-T/s1600/icons8-username-50.png" alt="Username Icon">
+            </span>
+            <input type="text" id="username" placeholder="Username">
         </div>
         <div class="icon-input-container">
-            <i class="fas fa-lock icon"></i>
-            <input type="password" id="password" placeholder="Type your password">
+            <span class="icon">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjAr9L5iIUi_m9AMfaqy1DbazEcNVE82PaJWVvvTRriqtT-IBhircVKYzvjCiV_phu0khXb7Dh06x1jWfCXGJPxrA9xbbn3PeNq6x22AHA7fk0EQGGmqxrJ5BUszLMaz0dKNDhi7VTLyzvwzXMCSwLwyGh6BP6mNdr1cB3k_tGv2VLpU9JMRie4_1jTw8rO/s1600/icons8-password-50-transformed.png" alt="Password Icon">
+            </span>
+            <input type="password" id="password" placeholder="Password">
         </div>
         <a href="#" class="forgot-password" onclick="forgotPassword()">Forgot password?</a>
         <button onclick="login()">LOGIN</button>
