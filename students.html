@@ -67,40 +67,40 @@
             100% { transform: rotate(360deg); }
         }
         @media (max-width: 600px) {
-            .list-container {
-                padding: 15px;
-            }
-            table, th, td {
+            table, thead, tbody, th, td, tr {
                 display: block;
-                width: 100%;
             }
-            th, td {
-                padding: 8px;
-                font-size: 14px;
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
             }
-            th {
-                background-color: transparent;
-                text-align: right;
-            }
-            th::before {
-                content: attr(data-title);
-                float: left;
-                font-weight: bold;
+            tr {
+                border: 1px solid #ccc;
+                margin-bottom: 10px;
             }
             td {
+                border: none;
+                border-bottom: 1px solid #eee;
+                position: relative;
+                padding-left: 50%;
                 text-align: right;
             }
-            .remove-btn {
-                padding: 4px 8px;
-                font-size: 14px;
+            td:before {
+                position: absolute;
+                top: 50%;
+                left: 10px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                transform: translateY(-50%);
+                font-weight: bold;
             }
-            .spinner {
-                width: 20px;
-                height: 20px;
-            }
-            .loading {
-                font-size: 16px;
-            }
+            td:nth-of-type(1):before { content: "Name"; }
+            td:nth-of-type(2):before { content: "Student ID"; }
+            td:nth-of-type(3):before { content: "Email ID"; }
+            td:nth-of-type(4):before { content: "Branch"; }
+            td:nth-of-type(5):before { content: "Action"; }
         }
     </style>
 </head>
@@ -109,13 +109,17 @@
         <h2>Student Visits List</h2>
         <div id="loading" class="loading">Loading students data<span class="spinner"></span></div>
         <table id="student-list" style="display: none;">
-            <tr>
-                <th data-title="Name">Name</th>
-                <th data-title="Student ID">Student ID</th>
-                <th data-title="Email ID">Email ID</th>
-                <th data-title="Branch">Branch</th>
-                <th data-title="Action">Action</th>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Student ID</th>
+                    <th>Email ID</th>
+                    <th>Branch</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
         </table>
         <a href="home.html" style="display: block; text-align: center; margin-top: 20px; text-decoration: none; color: #007BFF;">Register New Visit</a>
     </div>
@@ -138,7 +142,7 @@
         firebase.initializeApp(firebaseConfig);
 
         async function loadStudents() {
-            const studentListTable = document.getElementById('student-list');
+            const studentListTable = document.getElementById('student-list').getElementsByTagName('tbody')[0];
             const loadingDiv = document.getElementById('loading');
             const snapshot = await firebase.database().ref('students').once('value');
             
@@ -156,7 +160,7 @@
             });
             
             loadingDiv.style.display = 'none';
-            studentListTable.style.display = 'table';
+            studentListTable.parentElement.style.display = 'table';
         }
 
         async function removeStudent(key) {
