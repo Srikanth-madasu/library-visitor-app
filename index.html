@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login</title>
@@ -9,68 +8,118 @@
         body {
             font-family: Arial, sans-serif;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background: linear-gradient(to right, #6a11cb, #2575fc);
+            background: #f1f0f0;
             color: white;
         }
         .login-container {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+
             width: 100%;
             max-width: 400px;
             box-sizing: border-box;
+            text-align: center;
             color: black;
         }
         .login-container h2 {
             margin: 0 0 20px;
-            text-align: center;
+            font-size: 24px;
+            color: #333;
         }
-        .login-container input {
+        .login-container .icon-input-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .login-container .icon-input-container input {
             display: block;
             width: 100%;
-            margin: 10px 0;
-            padding: 10px;
+            padding: 10px 40px 10px 20px;
             font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
             box-sizing: border-box;
+        }
+        .login-container .icon-input-container .icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: #6a11cb;
         }
         .login-container button {
             width: 100%;
-            padding: 10px;
-            background-color: #007BFF;
+            padding: 8px;
+            background: linear-gradient(to right, #6a11cb, #2575fc, #e100ff);
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 20px;
             font-size: 16px;
             cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s ease;
         }
-        .login-container p {
-            color: red;
-            text-align: center;
+        .login-container button:hover {
+            background: linear-gradient(to right, #e100ff, #2575fc, #6a11cb);
+        }
+        .login-container .forgot-password {
+            display: block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #007BFF;
+            font-size: 14px;
         }
         footer {
-            margin-top: auto;
-            padding: 10px;
+            position: absolute;
+            bottom: 10px;
             text-align: center;
-            color: white;
-            background: rgba(0, 0, 0, 0.2);
             width: 100%;
-            box-sizing: border-box;
+            color: rgb(0, 0, 0);
+        }
+        @media (max-width: 600px) {
+            body {
+                background: white;
+            }
+            .login-container {
+                background: white;
+                color: black;
+            }
+            .login-container h2, .login-container .forgot-password {
+                color: #333;
+            }
+            .login-container .icon-input-container input {
+                background: white;
+                color: black;
+            }
+            .login-container .icon {
+                color: #6a11cb;
+            }
+            footer {
+                color: black;
+            }
         }
     </style>
+    <!-- Include FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/kTc8kCTKyc1iwhcn/dZf7ZXLRL+UbI8sKsb9lz/e01j0nE5b/h1QthZ0MZVvgM6ZlXYj7lqRJITFg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <div class="login-container">
         <h2>Admin Login</h2>
-        <input type="text" id="username" placeholder="Username">
-        <input type="password" id="password" placeholder="Password">
-        <button onclick="login()">Login</button>
-        <p id="error"></p>
+        <div class="icon-input-container">
+            <i class="fas fa-user icon"></i>
+            <input type="text" id="username" placeholder="Type your username">
+        </div>
+        <div class="icon-input-container">
+            <i class="fas fa-lock icon"></i>
+            <input type="password" id="password" placeholder="Type your password">
+        </div>
+        <a href="#" class="forgot-password" onclick="forgotPassword()">Forgot password?</a>
+        <button onclick="login()">LOGIN</button>
     </div>
     <footer>Made with ❤️ by CSE Students</footer>
     <script>
@@ -80,8 +129,12 @@
             if (username === 'SaiPavanGouda' && password === 'Sai@2002') {
                 window.location.href = 'home.html';
             } else {
-                document.getElementById('error').innerText = 'Invalid username or password';
+                alert('Invalid username or password');
             }
+        }
+
+        function forgotPassword() {
+            alert('Please contact Developer');
         }
     </script>
 </body>
