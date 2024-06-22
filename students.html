@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Visits List</title>
     <style>
-        
         body {
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
@@ -101,7 +100,9 @@
             td:nth-of-type(2):before { content: "Student ID"; }
             td:nth-of-type(3):before { content: "Email ID"; }
             td:nth-of-type(4):before { content: "Branch"; }
-            td:nth-of-type(5):before { content: "Action"; }
+            td:nth-of-type(5):before { content: "Visit Date and Time"; }
+            td:nth-of-type(6):before { content: "Book Name"; }
+            td:nth-of-type(7):before { content: "Action"; }
         }
     </style>
 </head>
@@ -116,6 +117,8 @@
                     <th>Student ID</th>
                     <th>Email ID</th>
                     <th>Branch</th>
+                    <th>Visit Date and Time</th>
+                    <th>Book Name</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -155,6 +158,8 @@
                     <td>${student.studentId}</td>
                     <td>${student.email}</td>
                     <td>${student.branch}</td>
+                    <td>${student.visitDatetime}</td>
+                    <td>${student.bookName}</td>
                     <td><button class="remove-btn" onclick="removeStudent('${childSnapshot.key}')">Remove</button></td>
                 `;
                 studentListTable.appendChild(row);
