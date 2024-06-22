@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Visits List</title>
     <style>
@@ -25,6 +24,18 @@
         .list-container h2 {
             text-align: center;
             margin: 0 0 20px 0;
+        }
+        .search-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .search-container input {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
         }
         table {
             width: 100%;
@@ -115,6 +126,9 @@
 <body>
     <div class="list-container">
         <h2>Student Visits List</h2>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search...">
+        </div>
         <div id="loading" class="loading">Loading students data<span class="spinner"></span></div>
         <table id="student-list" style="display: none;">
             <thead>
@@ -179,6 +193,24 @@
             await firebase.database().ref('students/' + key).remove();
             location.reload();  // Reload the page to update the list
         }
+
+        function filterStudents() {
+            const searchInput = document.getElementById('search-input').value.toLowerCase();
+            const rows = document.getElementById('student-list').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+            for (const row of rows) {
+                const cells = row.getElementsByTagName('td');
+                let match = false;
+                for (const cell of cells) {
+                    if (cell.textContent.toLowerCase().includes(searchInput)) {
+                        match = true;
+                        break;
+                    }
+                }
+                row.style.display = match ? '' : 'none';
+            }
+        }
+
+        document.getElementById('search-input').addEventListener('input', filterStudents);
 
         window.onload = loadStudents;
     </script>
