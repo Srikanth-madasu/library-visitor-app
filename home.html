@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Library Book Borrowing</title>
+    <title>Student Library Visit Registration</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -43,12 +43,13 @@
 </head>
 <body>
     <div class="form-container">
-        <h2>Register Book Borrowing</h2>
-        <input type="text" id="borrower-name" placeholder="Borrower's Name">
-        <input type="text" id="book-name" placeholder="Book Name">
-        <input type="datetime-local" id="borrow-time" placeholder="Borrowing Time">
-        <button onclick="addBorrowing()">Add Borrowing</button>
-        <a href="borrowings.html">View Borrowing List</a>
+        <h2>Register Student Visit</h2>
+        <input type="text" id="student-name" placeholder="Student Name">
+        <input type="text" id="student-id" placeholder="Student ID">
+        <input type="email" id="email-id" placeholder="Email ID">
+        <input type="text" id="branch" placeholder="Branch">
+        <button onclick="addStudentVisit()">Add Visit</button>
+        <a href="students.html">View Student Visits</a>
     </div>
     <!-- Include Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
@@ -68,17 +69,19 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
 
-        async function addBorrowing() {
-            const name = document.getElementById('borrower-name').value;
-            const book = document.getElementById('book-name').value;
-            const time = document.getElementById('borrow-time').value;
-            if (name && book && time) {
-                const borrowing = { name, book, time };
-                await firebase.database().ref('borrowings').push(borrowing);
-                alert('Borrowing registered successfully');
-                document.getElementById('borrower-name').value = '';
-                document.getElementById('book-name').value = '';
-                document.getElementById('borrow-time').value = '';
+        async function addStudentVisit() {
+            const name = document.getElementById('student-name').value;
+            const studentId = document.getElementById('student-id').value;
+            const email = document.getElementById('email-id').value;
+            const branch = document.getElementById('branch').value;
+            if (name && studentId && email && branch) {
+                const studentVisit = { name, studentId, email, branch };
+                await firebase.database().ref('students').push(studentVisit);
+                alert('Student visit registered successfully');
+                document.getElementById('student-name').value = '';
+                document.getElementById('student-id').value = '';
+                document.getElementById('email-id').value = '';
+                document.getElementById('branch').value = '';
             } else {
                 alert('Please fill in all fields');
             }
