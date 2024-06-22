@@ -72,6 +72,8 @@
         <input type="text" id="student-id" placeholder="Student ID">
         <input type="email" id="email-id" placeholder="Email ID">
         <input type="text" id="branch" placeholder="Branch">
+        <input type="datetime-local" id="visit-datetime" placeholder="Visit Date and Time">
+        <input type="text" id="book-name" placeholder="Book Name (optional)">
         <button onclick="addStudentVisit()">Add Visit</button>
         <a href="students.html">View Student Visits</a>
     </div>
@@ -98,14 +100,19 @@
             const studentId = document.getElementById('student-id').value;
             const email = document.getElementById('email-id').value;
             const branch = document.getElementById('branch').value;
-            if (name && studentId && email && branch) {
-                const studentVisit = { name, studentId, email, branch };
+            const visitDatetime = document.getElementById('visit-datetime').value;
+            const bookName = document.getElementById('book-name').value || "No book taken";
+
+            if (name && studentId && email && branch && visitDatetime) {
+                const studentVisit = { name, studentId, email, branch, visitDatetime, bookName };
                 await firebase.database().ref('students').push(studentVisit);
                 alert('Student visit registered successfully');
                 document.getElementById('student-name').value = '';
                 document.getElementById('student-id').value = '';
                 document.getElementById('email-id').value = '';
                 document.getElementById('branch').value = '';
+                document.getElementById('visit-datetime').value = '';
+                document.getElementById('book-name').value = '';
             } else {
                 alert('Please fill in all fields');
             }
