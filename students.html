@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Visits List</title>
+    <title>Student Library Visit Registration</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,150 +13,88 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
         }
-        .list-container {
+        .form-container {
             background: white;
             padding: 40px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 1200px;
+            max-width: 400px;
             box-sizing: border-box;
             margin: auto;
-        }
-        .list-container h2 {
             text-align: center;
-            margin: 0 0 20px 0;
-            color: #333;
+            color: black;
         }
-        .search-container {
-            text-align: center;
+        .form-container img {
+            max-width: 150px; /* Adjust the size as needed */
             margin-bottom: 20px;
         }
-        .search-container input {
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .form-container input {
+            display: block;
             width: 100%;
-            max-width: 400px;
+            margin: 10px 0;
             padding: 10px;
             font-size: 16px;
+            box-sizing: border-box;
             border: 1px solid #ddd;
             border-radius: 5px;
-            box-sizing: border-box;
         }
-        table {
+        .form-container button {
             width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            table-layout: fixed;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-        th, td {
-            padding: 12px;
-            text-align: left;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .remove-btn {
+            padding: 10px;
             background: linear-gradient(to right, #6a11cb, #2575fc, #e100ff);
             color: white;
             border: none;
             border-radius: 20px;
-            padding: 5px 10px;
+            font-size: 16px;
             cursor: pointer;
+            margin-top: 20px;
             transition: background 0.3s ease;
         }
-        .remove-btn:hover {
+        .form-container button:hover {
             background: linear-gradient(to right, #e100ff, #2575fc, #6a11cb);
         }
-        .loading {
+        .form-container a {
+            display: block;
             text-align: center;
-            font-size: 18px;
-        }
-        .spinner {
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            border-left-color: #007BFF;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            animation: spin 1s linear infinite;
-            display: inline-block;
-            margin-left: 10px;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007BFF;
+            font-size: 16px;
         }
         @media (max-width: 600px) {
-            table, thead, tbody, th, td, tr {
-                display: block;
+            .form-container {
+                padding: 15px;
             }
-            thead tr {
-                position: absolute;
-                top: -9999px;
-                left: -9999px;
+            .form-container h2 {
+                font-size: 18px;
             }
-            tr {
-                border: 1px solid #ccc;
-                margin-bottom: 10px;
+            .form-container input, .form-container button, .form-container a {
+                padding: 8px;
+                font-size: 14px;
             }
-            td {
-                border: none;
-                border-bottom: 1px solid #eee;
-                position: relative;
-                padding-left: 50%;
-                text-align: left;
-                white-space: normal;
-            }
-            td:before {
-                position: absolute;
-                top: 50%;
-                left: 10px;
-                width: 45%;
-                padding-right: 10px;
-                white-space: nowrap;
-                transform: translateY(-50%);
-                font-weight: bold;
-                white-space: normal;
-            }
-            td:nth-of-type(1):before { content: "Name"; }
-            td:nth-of-type(2):before { content: "Student ID"; }
-            td:nth-of-type(3):before { content: "Email ID"; }
-            td:nth-of-type(4):before { content: "Branch"; }
-            td:nth-of-type(5):before { content: "Visit Date and Time"; }
-            td:nth-of-type(6):before { content: "Book Name"; }
-            td:nth-of-type(7):before { content: "Action"; }
         }
     </style>
 </head>
 <body>
-    <div class="list-container">
-        <h2>Student Visits List</h2>
-        <div class="search-container">
-            <input type="text" id="search-input" placeholder="Search...">
-        </div>
-        <div id="loading" class="loading">Loading students data<span class="spinner"></span></div>
-        <table id="student-list" style="display: none;">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Student ID</th>
-                    <th>Email ID</th>
-                    <th>Branch</th>
-                    <th>Visit Date and Time</th>
-                    <th>Book Name</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-        <a href="home.html" style="display: block; text-align: center; margin-top: 20px; text-decoration: none; color: #007BFF;">Register New Visit</a>
+    <div class="form-container">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgUakzHeOGhesnTKBMsLbmthDVm-emApFqLPOj_b1iJvtUVJL7bxjPa5RXc8Iv4GEEIMPRp63hkKxCg4t56AMm50WpW8tMVN2FVeCqIiZdeArVmyQI1vTTw3hHgzqJc6DyzehXZkwUo84vAoeVjCNBWpLasUw71ZAR7RyYtqCUYdRlR1SNrhG0UpOIw8ZFx/s320/image-removebg-preview.png" alt="Logo">
+        <h2>Register Student Visit</h2>
+        <input type="text" id="student-name" placeholder="Student Name">
+        <input type="text" id="student-id" placeholder="Student ID">
+        <input type="email" id="email-id" placeholder="Email ID">
+        <input type="text" id="branch" placeholder="Branch">
+        <input type="datetime-local" id="visit-datetime" placeholder="Visit Date and Time">
+        <input type="text" id="book-name" placeholder="Book Name (optional)">
+        <button onclick="addStudentVisit()">Add Visit</button>
+        <a href="students.html">View Student Visits</a>
     </div>
     <!-- Include Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
@@ -176,63 +114,28 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
 
-        async function loadStudents() {
-            const studentListTable = document.getElementById('student-list').getElementsByTagName('tbody')[0];
-            const loadingDiv = document.getElementById('loading');
-            const snapshot = await firebase.database().ref('students').once('value');
-            
-            snapshot.forEach((childSnapshot) => {
-                const student = childSnapshot.val();
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${student.name}</td>
-                    <td>${student.studentId}</td>
-                    <td>${student.email}</td>
-                    <td>${student.branch}</td>
-                    <td>${student.visitDatetime || 'No data'}</td>
-                    <td>${student.bookName || 'No book taken'}</td>
-                    <td><button class="remove-btn" onclick="confirmRemoveStudent('${childSnapshot.key}')">Remove</button></td>
-                `;
-                studentListTable.appendChild(row);
-            });
-            
-            loadingDiv.style.display = 'none';
-            studentListTable.parentElement.style.display = 'table';
-        }
+        async function addStudentVisit() {
+            const name = document.getElementById('student-name').value;
+            const studentId = document.getElementById('student-id').value;
+            const email = document.getElementById('email-id').value;
+            const branch = document.getElementById('branch').value;
+            const visitDatetime = document.getElementById('visit-datetime').value;
+            const bookName = document.getElementById('book-name').value || "No book taken";
 
-        async function confirmRemoveStudent(key) {
-            const password = prompt("Please enter the password to remove this record:");
-            if (password === "Binnu123") {
-                await removeStudent(key);
+            if (name && studentId && email && branch && visitDatetime) {
+                const studentVisit = { name, studentId, email, branch, visitDatetime, bookName };
+                await firebase.database().ref('students').push(studentVisit);
+                alert('Student visit registered successfully');
+                document.getElementById('student-name').value = '';
+                document.getElementById('student-id').value = '';
+                document.getElementById('email-id').value = '';
+                document.getElementById('branch').value = '';
+                document.getElementById('visit-datetime').value = '';
+                document.getElementById('book-name').value = '';
             } else {
-                alert("Incorrect password. Record not removed.");
+                alert('Please fill in all fields');
             }
         }
-
-        async function removeStudent(key) {
-            await firebase.database().ref('students/' + key).remove();
-            location.reload();  // Reload the page to update the list
-        }
-
-        function filterStudents() {
-            const searchInput = document.getElementById('search-input').value.toLowerCase();
-            const rows = document.getElementById('student-list').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
-            for (const row of rows) {
-                const cells = row.getElementsByTagName('td');
-                let match = false;
-                for (const cell of cells) {
-                    if (cell.textContent.toLowerCase().includes(searchInput)) {
-                        match = true;
-                        break;
-                    }
-                }
-                row.style.display = match ? '' : 'none';
-            }
-        }
-
-        document.getElementById('search-input').addEventListener('input', filterStudents);
-
-        window.onload = loadStudents;
     </script>
 </body>
 </html>
