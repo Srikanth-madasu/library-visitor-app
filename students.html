@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Borrowing List</title>
+    <title>Student Visits List</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,21 +15,28 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
+            max-width: 800px;
             margin: auto;
         }
         .list-container h2 {
             text-align: center;
         }
-        .borrowing-item {
-            display: flex;
-            justify-content: space-between;
-            margin: 10px 0;
-            padding: 10px;
-            background: #f9f9f9;
-            border-radius: 4px;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
         }
-        .borrowing-item button {
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .remove-btn {
             background-color: #FF6347;
             color: white;
             border: none;
@@ -41,9 +48,17 @@
 </head>
 <body>
     <div class="list-container">
-        <h2>Borrowing List</h2>
-        <div id="borrowing-list"></div>
-        <a href="home.html" style="display: block; text-align: center; margin-top: 20px; text-decoration: none; color: #007BFF;">Register New Borrowing</a>
+        <h2>Student Visits List</h2>
+        <table id="student-list">
+            <tr>
+                <th>Name</th>
+                <th>Student ID</th>
+                <th>Email ID</th>
+                <th>Branch</th>
+                <th>Action</th>
+            </tr>
+        </table>
+        <a href="home.html" style="display: block; text-align: center; margin-top: 20px; text-decoration: none; color: #007BFF;">Register New Visit</a>
     </div>
     <!-- Include Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
@@ -63,28 +78,29 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
 
-        async function loadBorrowings() {
-            const borrowingListContainer = document.getElementById('borrowing-list');
-            borrowingListContainer.innerHTML = '';
-            const snapshot = await firebase.database().ref('borrowings').once('value');
+        async function loadStudents() {
+            const studentListTable = document.getElementById('student-list');
+            const snapshot = await firebase.database().ref('students').once('value');
             snapshot.forEach((childSnapshot) => {
-                const borrowing = childSnapshot.val();
-                const borrowingItem = document.createElement('div');
-                borrowingItem.className = 'borrowing-item';
-                borrowingItem.innerHTML = `
-                    <span>${borrowing.name} - ${borrowing.book} - ${borrowing.time}</span>
-                    <button onclick="removeBorrowing('${childSnapshot.key}')">Delete</button>
+                const student = childSnapshot.val();
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${student.name}</td>
+                    <td>${student.studentId}</td>
+                    <td>${student.email}</td>
+                    <td>${student.branch}</td>
+                    <td><button class="remove-btn" onclick="removeStudent('${childSnapshot.key}')">Remove</button></td>
                 `;
-                borrowingListContainer.appendChild(borrowingItem);
+                studentListTable.appendChild(row);
             });
         }
 
-        async function removeBorrowing(key) {
-            await firebase.database().ref('borrowings/' + key).remove();
-            loadBorrowings();
+        async function removeStudent(key) {
+            await firebase.database().ref('students/' + key).remove();
+            location.reload();  // Reload the page to update the list
         }
 
-        window.onload = loadBorrowings;
+        window.onload = loadStudents;
     </script>
 </body>
 </html>
